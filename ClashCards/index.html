@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Royale Card Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Clash Royale Card Quiz</h1>
+
+    <div id="timer">15:00</div>
+
+    <div id="progress">0 / 120 Found</div>
+
+    <input
+        type="text"
+        id="cardInput"
+        placeholder="Type card name..."
+        autocomplete="off"
+    >
+
+    <div id="grid"></div>
+
+    <script src="script.js">
+        async function callApi() {
+            const documentRef = document.getElementById('response');
+            documentRef.innerText = 'Calling AWS Lambda ...';
+            try{
+                const res= await fetch('https://ziuxayaew6nwvkrpcow3zu7dju0mnlhx.lambda-url.us-east-1.on.aws/');
+                const data = await res.json();
+                documentRef.innerText = data.message;
+            } catch (err) {
+                documentRef.innerText = 'Error calling API';
+                }   
+        }
+    </script>
+
+</body>
+</html>
