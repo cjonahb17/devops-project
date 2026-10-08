@@ -34,6 +34,12 @@ resource "aws_vpc_security_group_ingress_rule" "allow_https" {
   to_port     = 443
 }
 
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  security_group_id = aws_security_group.allow_tls.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" 
+}
+
 resource "aws_instance" "web_1" {
   ami           = "ami-0b6d9d3d33ba97d99" 
   instance_type = "t3.micro"
